@@ -29,7 +29,7 @@ public class InputHandler : MonoBehaviour
     #region Event Callback Functions
     private void OnSingletap()
     {
-        MyCube.currentCube.currentActionType = ActionType.STOP;
+        MyCube.currentCube.selectAction(ActionType.STOP);
     }
 
     private void OnDoubleTap()

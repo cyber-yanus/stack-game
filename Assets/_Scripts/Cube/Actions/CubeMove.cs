@@ -4,14 +4,17 @@ public class CubeMove : IAction
 {
     [SerializeField] private float moveSpeed { get; set; }
 
+    private MyCube target;
 
 
-    public CubeMove()
+    public CubeMove(MyCube target, float moveSpeed)
     {
-        moveSpeed = 1.5f;            
+        this.target = target;
+
+        this.moveSpeed = moveSpeed;            
     }
 
-    public void execute(MyCube target)
+    public void execute()
     {
         target.transform.position += target.transform.forward * Time.deltaTime * moveSpeed;
     }

@@ -6,8 +6,12 @@ public class MyCube : MonoBehaviour
     public static MyCube currentCube { get; private set; }
     public static MyCube lastCube { get; private set; }
 
-    public ActionType currentActionType;
+    public float moveSpeed;
+
+    public ActionType startActionType;
     private IAction action;
+
+
 
 
 
@@ -17,15 +21,15 @@ public class MyCube : MonoBehaviour
             lastCube = GameObject.Find("Main Cube").GetComponent<MyCube>();
 
         currentCube = this;
+
+        selectAction(startActionType);
     }
 
 
     private void Update()
     {
-        selectAction(currentActionType);
-
         if(action != null)
-            action.execute(this);
+            action.execute();
     }
 
     public void selectAction(ActionType type)
@@ -34,11 +38,11 @@ public class MyCube : MonoBehaviour
         switch (type)
         {
             case ActionType.MOVE:
-                action = new CubeMove();
+                action = new CubeMove(this, moveSpeed);
                 break;
 
             case ActionType.STOP:
-                action = new CubeStop();
+                action = new CubeStop(this);
                 break;
 
             default: action = null;

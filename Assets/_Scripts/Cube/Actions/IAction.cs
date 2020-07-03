@@ -2,5 +2,5 @@
 
 public interface IAction
 {
-    void execute(MyCube target);
+    void execute();
 }
