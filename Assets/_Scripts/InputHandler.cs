@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-
-
+using UnityEngine.Events;
 
 public class InputHandler : MonoBehaviour
 {
 
     [SerializeField] private SwipeManager swipeManager;
+
+    public UnityEvent spawnEvent;
+
 
     #region Unity methods
     private void OnEnable()
@@ -30,6 +32,7 @@ public class InputHandler : MonoBehaviour
     private void OnSingletap()
     {
         MyCube.currentCube.selectAction(ActionType.STOP);
+        spawnEvent.Invoke();
     }
 
     private void OnDoubleTap()

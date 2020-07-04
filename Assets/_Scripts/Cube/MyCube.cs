@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MyCube : MonoBehaviour
 {   
@@ -22,6 +21,11 @@ public class MyCube : MonoBehaviour
 
         currentCube = this;
 
+        transform.localScale = new Vector3(lastCube.transform.localScale.x, transform.localScale.y, lastCube.transform.localScale.z);
+    }
+
+    private void Start()
+    {
         selectAction(startActionType);
     }
 
@@ -43,6 +47,9 @@ public class MyCube : MonoBehaviour
 
             case ActionType.STOP:
                 action = new CubeStop(this);
+
+                lastCube = currentCube;
+
                 break;
 
             default: action = null;
@@ -50,6 +57,12 @@ public class MyCube : MonoBehaviour
         }
 
     
+    }
+
+    private void OnDestroy()
+    {
+        currentCube = null;
+        lastCube = null;
     }
 
 

@@ -1,11 +1,9 @@
-﻿using System.ComponentModel;
-using UnityEngine;
-using UnityEngine.VFX;
+﻿using UnityEngine;
 
 public class CubeStop : IAction
 {
     private MyCube target;
-    bool check;
+    
 
 
     public CubeStop(MyCube target)
@@ -14,6 +12,11 @@ public class CubeStop : IAction
 
         float remainder = target.transform.position.z - MyCube.lastCube.transform.position.z;
 
+        if (Mathf.Abs(remainder) >= MyCube.lastCube.transform.localScale.z)
+        {
+            //SceneManager.LoadScene(0);
+        }
+
 
         float directionZ = remainder > 0 ? 1f : -1f;
         spliteZone(remainder,directionZ);
@@ -21,7 +24,7 @@ public class CubeStop : IAction
 
     public void execute()
     {
-        Debug.Log("the cube stopped");
+        
     }
 
 
