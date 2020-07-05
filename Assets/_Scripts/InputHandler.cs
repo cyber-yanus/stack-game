@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private SwipeManager swipeManager;
 
     public UnityEvent spawnEvent;
+    public UnityEvent gameEvent;
 
 
     #region Unity methods
@@ -33,6 +34,7 @@ public class InputHandler : MonoBehaviour
     {
         MyCube.currentCube.selectAction(ActionType.STOP);
         spawnEvent.Invoke();
+        gameEvent.Invoke();
     }
 
     private void OnDoubleTap()

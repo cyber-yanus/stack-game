@@ -16,7 +16,20 @@ public class CubeMove : IAction
 
     public void execute()
     {
-        target.transform.position += target.transform.forward * Time.deltaTime * moveSpeed;
+        
+        switch (CubeSpawner.startSpawnDirection)
+        {
+            case SpawnDirection.LEFT:
+                target.transform.position += target.transform.forward * Time.deltaTime * moveSpeed;
+                break;
+
+            case SpawnDirection.RIGHT:
+                target.transform.position += target.transform.right * Time.deltaTime * moveSpeed;
+                break;
+        }
+
+
+        
     }
 
 }
