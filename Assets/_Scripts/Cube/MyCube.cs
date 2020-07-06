@@ -5,11 +5,12 @@ public class MyCube : MonoBehaviour
     public static MyCube currentCube { get; private set; }
     public static MyCube lastCube { get; private set; }
 
-    public float moveSpeed;
-
     public ActionType startActionType;
     private IAction action;
 
+    public float moveSpeed;
+    
+    public bool isDocking = false;
 
 
 
@@ -58,6 +59,7 @@ public class MyCube : MonoBehaviour
 
     
     }
+
 
     private void OnDestroy()
     {

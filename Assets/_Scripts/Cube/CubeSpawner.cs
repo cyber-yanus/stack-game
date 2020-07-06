@@ -14,8 +14,6 @@ public class CubeSpawner : MonoBehaviour
     private void Start()
     {
         startSpawnDirection = SpawnDirection.LEFT;
-
-        startSpawn();
     }
 
 

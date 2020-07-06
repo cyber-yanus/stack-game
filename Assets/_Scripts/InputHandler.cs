@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class InputHandler : MonoBehaviour
 {
 
     [SerializeField] private SwipeManager swipeManager;
 
-    public UnityEvent spawnEvent;
-    public UnityEvent gameEvent;
 
 
     #region Unity methods
@@ -32,9 +31,27 @@ public class InputHandler : MonoBehaviour
     #region Event Callback Functions
     private void OnSingletap()
     {
-        MyCube.currentCube.selectAction(ActionType.STOP);
-        spawnEvent.Invoke();
-        gameEvent.Invoke();
+        if (GameController.getInstance().isEndGame)
+        {
+            SceneManager.LoadScene(0);
+        }
+
+
+        if (MyCube.currentCube != null)
+        {
+            MyCube.currentCube.selectAction(ActionType.STOP);
+
+            if (MyCube.currentCube.isDocking)
+            {
+
+                GameController.getInstance().startGame();
+                GameController.getInstance().upScore();
+            }
+        }
+
+
+
+
     }
 
     private void OnDoubleTap()

@@ -3,7 +3,7 @@
 public class CubeStop : IAction
 {
     private MyCube target;
-    
+
 
 
     public CubeStop(MyCube target)
@@ -13,8 +13,14 @@ public class CubeStop : IAction
         float remainder = calculateRemainder();
 
 
-        if (Mathf.Abs(remainder) < MyCube.lastCube.transform.localScale.z)
+        float max = CubeSpawner.startSpawnDirection == SpawnDirection.LEFT ? 
+            MyCube.lastCube.transform.localScale.z : MyCube.lastCube.transform.localScale.x;
+
+        
+        if (Mathf.Abs(remainder) < max)
         {
+            target.isDocking = true;
+
             float direction = remainder > 0 ? 1f : -1f;
 
             if (CubeSpawner.startSpawnDirection == SpawnDirection.LEFT)
@@ -24,18 +30,15 @@ public class CubeStop : IAction
         }
         else
         {
+            target.isDocking = false;
+
             this.target.gameObject.AddComponent<Rigidbody>();
             this.target.gameObject.AddComponent<RemoveCube>();
-            
 
-            
-            //END GAME
+            GameController.getInstance().endGame();
+
+            Debug.Log("END GAME");
         }
-    }
-
-    public void execute()
-    {
-        
     }
 
     private float calculateRemainder()
@@ -44,13 +47,20 @@ public class CubeStop : IAction
         {
             case SpawnDirection.LEFT:
                 return target.transform.position.z - MyCube.lastCube.transform.position.z;
+                
 
             case SpawnDirection.RIGHT:
                 return target.transform.position.x - MyCube.lastCube.transform.position.x;
         }
 
-        return 0;    
+        return 0;
     }
+
+    public void execute()
+    {
+        
+    }
+
 
     private void spliteZoneZ(float remainder, float direction)
     {
