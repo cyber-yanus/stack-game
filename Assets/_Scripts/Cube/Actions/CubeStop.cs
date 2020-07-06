@@ -13,20 +13,28 @@ public class CubeStop : IAction
         float remainder = calculateRemainder();
 
 
+        float min = 0.04f;
         float max = CubeSpawner.startSpawnDirection == SpawnDirection.LEFT ? 
             MyCube.lastCube.transform.localScale.z : MyCube.lastCube.transform.localScale.x;
 
-        
-        if (Mathf.Abs(remainder) < max)
+        float direction = remainder > 0 ? 1f : -1f;
+
+        if (Mathf.Abs(remainder) < max && Mathf.Abs(remainder) > min)
         {
             target.isDocking = true;
-
-            float direction = remainder > 0 ? 1f : -1f;
-
+           
             if (CubeSpawner.startSpawnDirection == SpawnDirection.LEFT)
                 spliteZoneZ(remainder, direction);
             else if (CubeSpawner.startSpawnDirection == SpawnDirection.RIGHT)
                 spliteZoneX(remainder, direction);
+        }
+        else if (Mathf.Abs(remainder) <= min)
+        {
+            target.isDocking = true;
+
+            connectionZones();
+
+            GameController.getInstance().combo();
         }
         else
         {
@@ -59,6 +67,16 @@ public class CubeStop : IAction
     public void execute()
     {
         
+    }
+
+
+    private void connectionZones()
+    {
+        MyCube.currentCube.transform.position = new Vector3(MyCube.lastCube.transform.position.x, 
+            MyCube.currentCube.transform.position.y, 
+            MyCube.lastCube.transform.position.z);
+        
+        MyCube.currentCube.transform.localScale = MyCube.lastCube.transform.localScale;
     }
 
 

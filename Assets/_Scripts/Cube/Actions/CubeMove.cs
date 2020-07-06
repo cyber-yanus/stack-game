@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class CubeMove : IAction
 {
@@ -11,25 +12,35 @@ public class CubeMove : IAction
     {
         this.target = target;
 
-        this.moveSpeed = moveSpeed;            
+        this.moveSpeed = moveSpeed;
+
+
+        execute();
     }
 
     public void execute()
     {
+
+        var seq = DOTween.Sequence();
         
         switch (CubeSpawner.startSpawnDirection)
         {
             case SpawnDirection.LEFT:
-                target.transform.position += target.transform.forward * Time.deltaTime * moveSpeed;
+                seq.Append(target.transform.DOMoveZ(2f, moveSpeed, false));
+                seq.Append(target.transform.DOMoveZ(-2f, moveSpeed, false));
+                seq.OnComplete(execute);
                 break;
 
             case SpawnDirection.RIGHT:
-                target.transform.position += target.transform.right * Time.deltaTime * moveSpeed;
+                seq.Append(target.transform.DOMoveX(2f, moveSpeed, false));
+                seq.Append(target.transform.DOMoveX(-2f, moveSpeed, false));
+                seq.OnComplete(execute);
                 break;
         }
 
 
         
     }
+
 
 }

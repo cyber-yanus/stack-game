@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using DG.Tweening;
 public class MyCube : MonoBehaviour
 {   
     public static MyCube currentCube { get; private set; }
@@ -19,8 +19,9 @@ public class MyCube : MonoBehaviour
     {
         if (lastCube == null)
             lastCube = GameObject.Find("Main Cube").GetComponent<MyCube>();
-
-        currentCube = this;
+        
+        if (startActionType != ActionType.NONE)
+            currentCube = this;
 
         transform.localScale = new Vector3(lastCube.transform.localScale.x, transform.localScale.y, lastCube.transform.localScale.z);
     }
@@ -33,8 +34,8 @@ public class MyCube : MonoBehaviour
 
     private void Update()
     {
-        if(action != null)
-            action.execute();
+        //if(action != null)
+          //   action.execute();
     }
 
     public void selectAction(ActionType type)
@@ -47,6 +48,7 @@ public class MyCube : MonoBehaviour
                 break;
 
             case ActionType.STOP:
+                DOTween.KillAll();
                 action = new CubeStop(this);
 
                 lastCube = currentCube;

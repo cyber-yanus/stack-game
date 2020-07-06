@@ -35,22 +35,22 @@ public class InputHandler : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
-
+        
 
         if (MyCube.currentCube != null)
         {
             MyCube.currentCube.selectAction(ActionType.STOP);
 
             if (MyCube.currentCube.isDocking)
-            {
-
-                GameController.getInstance().startGame();
+            {                
                 GameController.getInstance().upScore();
             }
         }
 
-
-
+        if (!GameController.getInstance().isEndGame)
+        {
+            GameController.getInstance().startGame();
+        }
 
     }
 

@@ -66,6 +66,11 @@ public class GameController : MonoBehaviour
         
     }
 
+    public void combo()
+    { 
+        
+    }
+
     private void saveScore()
     {
         int lastScore = PlayerPrefs.GetInt("player score");
