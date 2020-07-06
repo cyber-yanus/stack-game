@@ -67,8 +67,8 @@ public class GameController : MonoBehaviour
     }
 
     public void combo()
-    { 
-        
+    {
+        Handheld.Vibrate();
     }
 
     private void saveScore()

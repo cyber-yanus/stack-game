@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabCube: {fileID: 4840791314238742259, guid: 67c35f904ce0df64a868f653d9f1d201,
     type: 3}
-  distanceFromLastCube: -2.8
+  distanceFromLastCube: -2
   startPositionY: 0.4
 --- !u!1 &1782384075
 GameObject:
